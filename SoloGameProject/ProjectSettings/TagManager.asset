@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin
+  - Coins
+  - Trap
+  - Door
+  - DoorFin
   layers:
   - Default
   - TransparentFX

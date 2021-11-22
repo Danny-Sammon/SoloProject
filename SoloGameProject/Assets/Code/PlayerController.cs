@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public int lives = 3;
@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
-
-    public GameObject[] gameObjects;
+ 
     bool isOnGround;
     [SerializeField]
     Transform floorSensor;
@@ -110,50 +109,46 @@ public class PlayerController : MonoBehaviour
             animator.Play("player_Jump");
         }
     }
-    void RemovalCoin()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObjects = GameObject.FindGameObjectsWithTag("Acid");
-        for (var i = 0; i < gameObjects.Length; i++)
-        {
-            Destroy(gameObjects[i]);
-        }
-    }
-    void RemoveCoin()
-    {
-        gameObjects = GameObject.FindGameObjectsWithTag("Coin");
-        for (var i = 0; i < gameObjects.Length; i++)
-        {
-            Destroy(gameObjects[i]);
-        }
-    }
-    void RemovalSpike()
-    {
-        gameObjects = GameObject.FindGameObjectsWithTag("Spike");
-    }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.name == "spike")
-        {
-            lives -= 1;
-            Destroy(other.gameObject);
-            if (lives == 0)
-            {
-                print("GAMEOVER");
-                RemoveCoin();
-                RemovalSpike();
-                Time.timeScale = 0;
-            }
-        }
-       
-        if (other.gameObject.name == "Coin")
+        if (collision.gameObject.CompareTag("Coins"))
         {
             score += 50;
-            Destroy(other.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Door"))
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+            if (collision.gameObject.CompareTag("DoorFin"))
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene("Win"); 
+        }
+    }
+   
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Trap"))
+        {
+                Destroy(gameObject);
+            SceneManager.LoadScene("GameOver");
+        }
+        else if (collision.gameObject.CompareTag("DoorFin"))
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene("Win");
+        }
+        else if (collision.gameObject.CompareTag("Door"))
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
     void OnGUI()
     {
         GUI.Box(new Rect(10, 10, 100, 30), "Score: " + score);
-        GUI.Box(new Rect(10, 40, 100, 30), "lives: " + lives);
     }
 }
