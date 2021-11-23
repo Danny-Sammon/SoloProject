@@ -21,11 +21,11 @@ public class Lives : MonoBehaviour
         }
     }
 
-   /* void OnGUI()
+   void OnGUI()
     {
         GUI.Box(new Rect(10, 40, 100, 30), "lives: " + lives);
     }
-   */
+  
     private void Update()
     {
         

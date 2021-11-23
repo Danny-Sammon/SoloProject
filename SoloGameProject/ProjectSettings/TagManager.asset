@@ -9,6 +9,8 @@ TagManager:
   - Trap
   - Door
   - DoorFin
+  - Crate
+  - Sword
   layers:
   - Default
   - TransparentFX

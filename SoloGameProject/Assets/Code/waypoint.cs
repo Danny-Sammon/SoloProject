@@ -7,7 +7,7 @@ public class waypoint : MonoBehaviour
     [SerializeField] private GameObject[] waypoints;
     private int currentWayPointIndex = 0;
 
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 1f;
     private void Update()
     {
         if (Vector2.Distance(waypoints[currentWayPointIndex].transform.position, transform.position) < .1f)

@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
                 Destroy(gameObject);
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
         }
         else if (collision.gameObject.CompareTag("DoorFin"))
         {
